@@ -115,7 +115,7 @@ body {
   
   
 
-    .input {
+    .display_numbers {
       width: 100%;
       font-size: 30px;
       text-align: left;
@@ -135,7 +135,7 @@ body {
       gap: 5px;
       width: 100%;
 
-      .button_zero {
+      #button_zero {
         grid-row-start: 5;
         grid-column: span 2/3;
         width: 100%;
@@ -157,19 +157,20 @@ button {
   border: none;
   background-color: darkgray;
   color: white;
-  font-size: 1em;
+  font-size: 12px;
+  cursor: pointer;
 
   &:hover {
-    background-color: darken(darkgray, 40%);
+    background-color: darken(darkgray, 40%); // not all the buttons are hovering
   }
 }
 
-.key_operator {
+#key_operator {
   background-color: orange;
 }
 
 
-.operator {
+#operator {
   background-color: lightgray;
 }
 
@@ -182,14 +183,14 @@ button {
   padding-top: 10%;
   border-radius: 50px;
 
-  .input {
+  .display_numbers {
     font-size: 80px;
   }
 
   .keys {
     gap: 5px;
 
-    .button_zero {
+    #button_zero {
       width: 100%;
       text-align: center;  // fix this
       border-radius: 100px;
@@ -213,14 +214,14 @@ button {
     width: 30%;
     // max-width: unset;
   
-    .input {
+    .display_numbers {
       font-size: 80px;
     }
   
     .keys {
       gap: 10px;
 
-      .button_zero {
+      #button_zero {
         width: 100%;
         border-radius: 190px;
         }
