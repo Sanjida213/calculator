@@ -5,7 +5,7 @@ const displayNumbers = document.querySelector<HTMLInputElement>(".display_number
 const operatorButtons = document.querySelectorAll<HTMLButtonElement>(".operator-function")
 const clearDisplay = document.querySelector<HTMLButtonElement>("#clearDisplay")
 const equalsButton = document.querySelector<HTMLButtonElement>("#equals")
-// const plusMinus = document.querySelector<HTMLButtonElement>("#plus-minus")
+const plusMinus = document.querySelector<HTMLButtonElement>("#plus-minus")
 
 let previousNumber: string | null = "";
 let currentNumber: string | null = "";
@@ -20,6 +20,7 @@ if (!numberButtons || !operatorButtons || !clearDisplay || !equalsButton) {
 if (displayNumbers === null) {
   throw new Error ("Issue with display input")
 }
+
 
 const calculate = (): void => {
   displayNumbers.value = ""
@@ -41,13 +42,10 @@ const calculate = (): void => {
     throw new Error ("Invalid operator")
   }
 
-  displayNumbers.value += result.toString()
-}
+  displayNumbers.value += result
+};
 
 equalsButton.addEventListener("click", calculate);
-
-
-
 
 
 
@@ -78,18 +76,30 @@ const handleClickNumber = (event: Event) => {
   }
 };
 
-
 numberButtons.forEach(button => {
   button.addEventListener("click", handleClickNumber)
 });
 
 
+// const plusMinusButton =  () => {
+//   if(previousNumber || currentNumber) {
+//     `-` += 
+//   }
+// }
 
-
+// plusMinus?.addEventListener("click", plusMinusButton)
 
 const clearDisplayButton = () => {
   displayNumbers.value = ""; 
+  previousNumber = "";
+  currentNumber = "";
+  currentOperator = "";
 };
 
 clearDisplay.addEventListener("click", clearDisplayButton);
+
+
+// deploy to github
+
+
 
