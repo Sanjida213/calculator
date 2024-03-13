@@ -87,8 +87,6 @@ numberButtons.forEach(button => {
 });
 
 
-
-
 plusMinus.addEventListener("click", () => {
   displayNumbers.innerHTML = "";
   if(previousNumber != "") {
@@ -97,6 +95,20 @@ plusMinus.addEventListener("click", () => {
   }
   if (previousNumber != "" && currentNumber != ""  && currentOperator != "") {
     result = -result;
+  }
+
+  displayNumbers.value = result.toString()
+});
+
+
+percentButton.addEventListener("click", () => {
+  displayNumbers.innerHTML = "";
+  if(previousNumber != "") {
+    result = Number(previousNumber) / 100
+    previousNumber = result 
+  }
+  if (previousNumber != "" && currentNumber != ""  && currentOperator != "") {
+    result = result / 100;
   }
 
   displayNumbers.value = result.toString()
