@@ -53,18 +53,6 @@ const calculate = (): void => {
 equalsButton.addEventListener("click", calculate);
 
 
-
-const handleClickAllButtons = (event: Event) => {
-  displayNumbers.value = ""
-  const operator = event.currentTarget as HTMLButtonElement;
-  currentOperator = operator.textContent
-}
-
-operatorButtons.forEach(operator => {
-  operator.addEventListener("click", handleClickAllButtons)
-});
-
-
 const handleClickNumber = (event: Event) => {
   const button = event.currentTarget as HTMLButtonElement;
   const number = button.textContent
@@ -84,14 +72,24 @@ numberButtons.forEach(button => {
 });
 
 
+
+const handleClickAllButtons = (event: Event) => {
+  displayNumbers.value = ""
+  const operator = event.currentTarget as HTMLButtonElement;
+  currentOperator = operator.textContent
+}
+
+operatorButtons.forEach(operator => {
+  operator.addEventListener("click", handleClickAllButtons)
+});
+
+
+
 plusMinus.addEventListener("click", () => {
   displayNumbers.innerHTML = "";
   if(previousNumber != "") {
     result = - Number(previousNumber)
     previousNumber = result.toString()
-  }
-  if (previousNumber != "" && currentNumber != ""  && currentOperator != "") {
-    result = -result;
   }
 
   displayNumbers.value = result.toString()
@@ -103,10 +101,7 @@ percentButton.addEventListener("click", () => {
     result = Number(previousNumber) / 100
     previousNumber = result.toString()
   }
-  if (previousNumber != "" && currentNumber != ""  && currentOperator != "") {
-    result = result / 100;
-  }
-
+  
   displayNumbers.value = result.toString()
 });
 
@@ -119,3 +114,4 @@ const clearDisplayButton = () => {
 };
 
 clearDisplay.addEventListener("click", clearDisplayButton);
+
