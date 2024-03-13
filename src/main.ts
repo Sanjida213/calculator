@@ -8,11 +8,9 @@ const equalsButton = document.querySelector<HTMLButtonElement>("#equals")
 const plusMinus = document.querySelector<HTMLButtonElement>("#plusMinus")
 const percentButton = document.querySelector<HTMLButtonElement>("#percentSign")
 
-let previousNumber: string | number = "";
+let previousNumber: string | null = "";
 let currentNumber: string | null = "";
 let currentOperator: string | null = "";
-let newOperator: string | null = "";
-
 
 if (!numberButtons || 
   !operatorButtons || 
@@ -39,7 +37,7 @@ const calculate = (): void => {
     result = Number(previousNumber) + Number(currentNumber);
   } else if (currentOperator === `-`) {
     result = Number(previousNumber) - Number(currentNumber);
-  } else if (currentOperator === `*`) {
+  } else if (currentOperator === `x`) {
     result = Number(previousNumber) * Number(currentNumber);
   } else if (currentOperator === `/`) {
     result = Number(previousNumber) / Number(currentNumber); 
@@ -60,7 +58,6 @@ const handleClickAllButtons = (event: Event) => {
   displayNumbers.value = ""
   const operator = event.currentTarget as HTMLButtonElement;
   currentOperator = operator.textContent
-  newOperator = operator.textContent
 }
 
 operatorButtons.forEach(operator => {
@@ -90,8 +87,8 @@ numberButtons.forEach(button => {
 plusMinus.addEventListener("click", () => {
   displayNumbers.innerHTML = "";
   if(previousNumber != "") {
-    result = -previousNumber
-    previousNumber = result
+    result = - Number(previousNumber)
+    previousNumber = result.toString()
   }
   if (previousNumber != "" && currentNumber != ""  && currentOperator != "") {
     result = -result;
@@ -102,10 +99,9 @@ plusMinus.addEventListener("click", () => {
 
 
 percentButton.addEventListener("click", () => {
-  displayNumbers.innerHTML = "";
   if(previousNumber != "") {
     result = Number(previousNumber) / 100
-    previousNumber = result 
+    previousNumber = result.toString()
   }
   if (previousNumber != "" && currentNumber != ""  && currentOperator != "") {
     result = result / 100;
@@ -123,28 +119,3 @@ const clearDisplayButton = () => {
 };
 
 clearDisplay.addEventListener("click", clearDisplayButton);
-
-
-// deploy to github
-
-
-
-// let resultTwo = result; 
-
-
-  // if (newOperator === '+') {
-  //   resultTwo = Number(result) + Number(currentNumber); 
-  // } else if (newOperator === '-') {
-  //   resultTwo = Number(result) - Number(currentNumber); 
-  // } else if (newOperator === '*') {
-  //   resultTwo = Number(result) * Number(currentNumber); 
-  // } else if (newOperator === '/') {
-  //   resultTwo = Number(result) / Number(currentNumber); 
-  // } else if (newOperator === '%') {
-  //   resultTwo = Number(result) % Number(currentNumber); 
-  // } else {
-  //   throw new Error("Invalid operator");
-  // }
-
-  // console.log(resultTwo)
-  // displayNumbers.value = resultTwo.toString()
