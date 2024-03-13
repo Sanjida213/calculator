@@ -6,8 +6,9 @@ const operatorButtons = document.querySelectorAll<HTMLButtonElement>(".operator-
 const clearDisplay = document.querySelector<HTMLButtonElement>("#clearDisplay")
 const equalsButton = document.querySelector<HTMLButtonElement>("#equals")
 const plusMinus = document.querySelector<HTMLButtonElement>("#plusMinus")
+const percentButton = document.querySelector<HTMLButtonElement>("#percentSign")
 
-let previousNumber: string | null = "";
+let previousNumber: string | number = "";
 let currentNumber: string | null = "";
 let currentOperator: string | null = "";
 let newOperator: string | null = "";
@@ -17,7 +18,8 @@ if (!numberButtons ||
   !operatorButtons || 
   !clearDisplay || 
   !equalsButton || 
-  !plusMinus) {
+  !plusMinus || 
+  !percentButton) {
   throw new Error ("Issue with buttons")
 }
 
@@ -25,10 +27,10 @@ if (displayNumbers === null) {
   throw new Error ("Issue with display input")
 }
 
-
+let result = 0
 const calculate = (): void => {
   displayNumbers.value = ""
-  let result = 0
+  
   console.log(currentOperator)
   console.log(typeof currentOperator)
 
@@ -86,15 +88,19 @@ numberButtons.forEach(button => {
 
 
 
-const plusMinusButton =  (): void => {
-  let currentValue = Number(displayNumbers.value)
-  if (currentValue > 0) {
-    displayNumbers.value = `-` + displayNumbers.value
-  } 
-}
 
-plusMinus.addEventListener("click", plusMinusButton);
+plusMinus.addEventListener("click", () => {
+  displayNumbers.innerHTML = "";
+  if(previousNumber != "") {
+    result = -previousNumber
+    previousNumber = result
+  }
+  if (previousNumber != "" && currentNumber != ""  && currentOperator != "") {
+    result = -result;
+  }
 
+  displayNumbers.value = result.toString()
+});
 
 
 const clearDisplayButton = () => {
