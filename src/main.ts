@@ -5,15 +5,19 @@ const displayNumbers = document.querySelector<HTMLInputElement>(".display_number
 const operatorButtons = document.querySelectorAll<HTMLButtonElement>(".operator-function")
 const clearDisplay = document.querySelector<HTMLButtonElement>("#clearDisplay")
 const equalsButton = document.querySelector<HTMLButtonElement>("#equals")
-const plusMinus = document.querySelector<HTMLButtonElement>("#plus-minus")
+const plusMinus = document.querySelector<HTMLButtonElement>("#plusMinus")
 
 let previousNumber: string | null = "";
 let currentNumber: string | null = "";
 let currentOperator: string | null = "";
+let newOperator: string | null = "";
 
 
-
-if (!numberButtons || !operatorButtons || !clearDisplay || !equalsButton) {
+if (!numberButtons || 
+  !operatorButtons || 
+  !clearDisplay || 
+  !equalsButton || 
+  !plusMinus) {
   throw new Error ("Issue with buttons")
 }
 
@@ -27,6 +31,7 @@ const calculate = (): void => {
   let result = 0
   console.log(currentOperator)
   console.log(typeof currentOperator)
+
 
   if (currentOperator === '+') {
     result = Number(previousNumber) + Number(currentNumber);
@@ -42,11 +47,10 @@ const calculate = (): void => {
     throw new Error ("Invalid operator")
   }
 
-  displayNumbers.value += result
+  displayNumbers.value += result;
 };
 
 equalsButton.addEventListener("click", calculate);
-
 
 
 
@@ -54,7 +58,7 @@ const handleClickAllButtons = (event: Event) => {
   displayNumbers.value = ""
   const operator = event.currentTarget as HTMLButtonElement;
   currentOperator = operator.textContent
- 
+  newOperator = operator.textContent
 }
 
 operatorButtons.forEach(operator => {
@@ -81,13 +85,17 @@ numberButtons.forEach(button => {
 });
 
 
-// const plusMinusButton =  () => {
-//   if(previousNumber || currentNumber) {
-//     `-` += 
-//   }
-// }
 
-// plusMinus?.addEventListener("click", plusMinusButton)
+const plusMinusButton =  (): void => {
+  let currentValue = Number(displayNumbers.value)
+  if (currentValue > 0) {
+    displayNumbers.value = `-` + displayNumbers.value
+  } 
+}
+
+plusMinus.addEventListener("click", plusMinusButton);
+
+
 
 const clearDisplayButton = () => {
   displayNumbers.value = ""; 
@@ -103,3 +111,22 @@ clearDisplay.addEventListener("click", clearDisplayButton);
 
 
 
+// let resultTwo = result; 
+
+
+  // if (newOperator === '+') {
+  //   resultTwo = Number(result) + Number(currentNumber); 
+  // } else if (newOperator === '-') {
+  //   resultTwo = Number(result) - Number(currentNumber); 
+  // } else if (newOperator === '*') {
+  //   resultTwo = Number(result) * Number(currentNumber); 
+  // } else if (newOperator === '/') {
+  //   resultTwo = Number(result) / Number(currentNumber); 
+  // } else if (newOperator === '%') {
+  //   resultTwo = Number(result) % Number(currentNumber); 
+  // } else {
+  //   throw new Error("Invalid operator");
+  // }
+
+  // console.log(resultTwo)
+  // displayNumbers.value = resultTwo.toString()
