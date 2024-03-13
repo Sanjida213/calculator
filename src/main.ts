@@ -41,8 +41,6 @@ const calculate = (): void => {
     result = Number(previousNumber) * Number(currentNumber);
   } else if (currentOperator === `/`) {
     result = Number(previousNumber) / Number(currentNumber); 
-  } else if (currentOperator === `%`) {
-    result = Number(previousNumber) % Number(currentNumber); 
   } else {
     throw new Error ("Invalid operator")
   }
