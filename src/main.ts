@@ -9,9 +9,9 @@ const plusMinus = document.querySelector<HTMLButtonElement>("#plusMinus")
 const percentButton = document.querySelector<HTMLButtonElement>("#percentSign")
 
 
-let previousNumber: string | null = "";
-let currentNumber: string | null = "";
-let currentOperator: string | null = "";
+let previousNumber: string = "";
+let currentNumber: string = "";
+let currentOperator: string = "";
 
 if (!numberButtons || 
   !operatorButtons || 
@@ -49,7 +49,7 @@ const calculate = (): void => {
   displayNumbers.value += result;
 };
 
-equalsButton.addEventListener("click", calculate);
+
 
 
 const handleClickNumber = (event: Event) => {
@@ -66,9 +66,7 @@ const handleClickNumber = (event: Event) => {
   }
 };
 
-numberButtons.forEach(button => {
-  button.addEventListener("click", handleClickNumber)
-});
+
 
 
 
@@ -78,9 +76,7 @@ const handleClickAllButtons = (event: Event) => {
   currentOperator = operator.textContent
 }
 
-operatorButtons.forEach(operator => {
-  operator.addEventListener("click", handleClickAllButtons)
-});
+
 
 
 
@@ -113,4 +109,10 @@ const clearDisplayButton = () => {
 };
 
 clearDisplay.addEventListener("click", clearDisplayButton);
-
+equalsButton.addEventListener("click", calculate);
+numberButtons.forEach(button => {
+  button.addEventListener("click", handleClickNumber)
+});
+operatorButtons.forEach(operator => {
+  operator.addEventListener("click", handleClickAllButtons)
+});
