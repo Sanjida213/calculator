@@ -8,6 +8,7 @@ const equalsButton = document.querySelector<HTMLButtonElement>("#equals")
 const plusMinus = document.querySelector<HTMLButtonElement>("#plusMinus")
 const percentButton = document.querySelector<HTMLButtonElement>("#percentSign")
 
+
 let previousNumber: string | null = "";
 let currentNumber: string | null = "";
 let currentOperator: string | null = "";
