@@ -6,7 +6,7 @@ const operatorButtons = document.querySelectorAll<HTMLButtonElement>(".operator-
 const clearDisplay = document.querySelector<HTMLButtonElement>("#clearDisplay")
 const equalsButton = document.querySelector<HTMLButtonElement>("#equals")
 const plusMinus = document.querySelector<HTMLButtonElement>("#plusMinus")
-const percentButton = document.querySelector<HTMLButtonElement>("#percentSign")
+const percentBtn = document.querySelector<HTMLButtonElement>("#percentSign")
 
 
 let previousNumber: string = "";
@@ -18,7 +18,7 @@ if (!numberButtons ||
   !clearDisplay || 
   !equalsButton || 
   !plusMinus || 
-  !percentButton) {
+  !percentBtn) {
   throw new Error ("Issue with buttons")
 }
 
@@ -28,77 +28,47 @@ if (displayNumbers === null) {
 
 let result = 0
 const calculate = (): void => {
-  displayNumbers.value = ""
-  
-  console.log(currentOperator)
-  console.log(typeof currentOperator)
+  let num1 = parseFloat(previousNumber);
+  let num2 = parseFloat(currentNumber);
 
 
   if (currentOperator === '+') {
-    result = Number(previousNumber) + Number(currentNumber);
+    result = num1 + num2;
   } else if (currentOperator === `-`) {
-    result = Number(previousNumber) - Number(currentNumber);
+    result = num1 - num2;
   } else if (currentOperator === `x`) {
-    result = Number(previousNumber) * Number(currentNumber);
+    result = num1 * num2;
   } else if (currentOperator === `/`) {
-    result = Number(previousNumber) / Number(currentNumber); 
+    result = num1 / num2; 
   } else {
     throw new Error ("Invalid operator")
   }
 
-  displayNumbers.value += result;
+  // displayNumbers.value = ""
+  displayNumbers.value += result.toString();
 };
-
-
 
 
 const handleClickNumber = (event: Event) => {
   const button = event.currentTarget as HTMLButtonElement;
-  const number = button.textContent
+  const number = button.textContent as string;
 
-  if (currentOperator) {
-    currentNumber =  (currentNumber || "") + number;
-    displayNumbers.value += number
+    if (currentOperator) {
+      currentNumber += number;
+    } else {
+      previousNumber += number;
+    }
 
-  }  else {
-    previousNumber = (previousNumber || "") + number;
-    displayNumbers.value += number
-  }
+  displayNumbers.value += number;
 };
 
-
-
-
-
 const handleClickAllButtons = (event: Event) => {
-  displayNumbers.value = ""
-  const operator = event.currentTarget as HTMLButtonElement;
-  currentOperator = operator.textContent
+  const operatorButton = event.currentTarget as HTMLButtonElement;
+  const operator = operatorButton.textContent as string;
+
+    displayNumbers.value += ` ${operator} `;
+    currentOperator = operator;
 }
-
-
-
-
-
-plusMinus.addEventListener("click", () => {
-  displayNumbers.innerHTML = "";
-  if(previousNumber != "") {
-    result = - Number(previousNumber)
-    previousNumber = result.toString()
-  }
-
-  displayNumbers.value = result.toString()
-});
-
-
-percentButton.addEventListener("click", () => {
-  if(previousNumber != "") {
-    result = Number(previousNumber) / 100
-    previousNumber = result.toString()
-  }
-  
-  displayNumbers.value = result.toString()
-});
 
 
 const clearDisplayButton = () => {
@@ -108,8 +78,40 @@ const clearDisplayButton = () => {
   currentOperator = "";
 };
 
+
+const handleEquals = () => {
+  displayNumbers.value = ""
+  calculate();
+  previousNumber = result.toString();
+  currentNumber = "";
+  currentOperator = "";
+};
+
+
+
+const plusMinusButton = () => {
+  if(previousNumber) {
+    result = - Number(previousNumber)
+    previousNumber = result.toString()
+    displayNumbers.value = result.toString()
+  }
+};
+
+
+const handlePercentButton = () => { 
+  if(previousNumber) {
+    result = parseFloat(previousNumber) / 100
+    previousNumber = result.toString()
+    displayNumbers.value = result.toString()
+  }
+};
+
+
+
 clearDisplay.addEventListener("click", clearDisplayButton);
-equalsButton.addEventListener("click", calculate);
+equalsButton.addEventListener("click", handleEquals);
+percentBtn.addEventListener("click", handlePercentButton)
+plusMinus.addEventListener("click", plusMinusButton);
 numberButtons.forEach(button => {
   button.addEventListener("click", handleClickNumber)
 });
