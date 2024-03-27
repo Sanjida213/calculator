@@ -44,7 +44,6 @@ const calculate = (): void => {
     throw new Error ("Invalid operator")
   }
 
-  // displayNumbers.value = ""
   displayNumbers.value += result.toString();
 };
 
@@ -90,6 +89,7 @@ const handleEquals = () => {
 
 
 const plusMinusButton = () => {
+  displayNumbers.innerText = ""
   if(previousNumber) {
     result = - Number(previousNumber)
     previousNumber = result.toString()
@@ -99,6 +99,7 @@ const plusMinusButton = () => {
 
 
 const handlePercentButton = () => { 
+  displayNumbers.innerHTML = ""
   if(previousNumber) {
     result = parseFloat(previousNumber) / 100
     previousNumber = result.toString()
